@@ -8,29 +8,32 @@ def input_collector(fileName):
     return lines
 
 
-def total_horizontal(lines):
+def total_horizontal(lines, aim):
     position = 0
+    depth = 0
     for line in lines:
         if "forward" in line:
             position += int(line[8])
-    return position
+            depth += aim*int(line[8])
+
+    return position, depth
 
 
 def total_depth(lines):
-    depth = 0
+    aim = 0
     for line in lines:
         if "down" in line:
-            depth += int(line[5])
+            aim += int(line[5])
         if "up" in line:
-            depth -= int(line[3])
-    return depth
+            aim -= int(line[3])
+    return aim
 
 
 def main():
     lines = input_collector("input2.txt")
-    horizontal = total_horizontal(lines)
-    depth = total_depth(lines)
-    print(depth*horizontal)
+    aim = total_depth(lines)
+    horizontal, depth2 = total_horizontal(lines, aim)
+    print(depth2*horizontal)
 
 
 main()
